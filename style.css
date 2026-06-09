@@ -1,0 +1,246 @@
+/* Configurações Gerais */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* =========================
+   ESTILO DO MENU
+========================= */
+.menu {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(180deg, #0a6dff 0%, #43c7ff 60%, #8fe9ff 100%);
+}
+
+.menu::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 140px;
+    background: #21b300;
+    border-top: 8px solid #9cff57;
+}
+
+.logo {
+    font-size: clamp(70px, 12vw, 150px);
+    font-weight: 900;
+    color: #ffd400;
+    text-shadow: 4px 4px 0 #0048b3, 8px 8px 0 #002e73;
+    text-align: center;
+    line-height: 0.9;
+}
+
+.logo span {
+    display: block;
+    color: #ff3838;
+    font-size: 0.65em;
+    text-shadow: 4px 4px 0 white, 8px 8px 0 #8a0000;
+}
+
+.btn-play {
+    margin-top: 40px;
+    width: 280px;
+    height: 75px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(#ffe600, #ffb300);
+    color: #003ea8;
+    font-size: 28px;
+    font-weight: 900;
+    cursor: pointer;
+    box-shadow: 0 8px 0 #cc8f00;
+    position: relative;
+    z-index: 1000;
+    transition: transform 0.2s;
+}
+
+.btn-play:hover {
+    transform: scale(1.05);
+}
+
+/* =========================
+   ESTILO DO JOGO
+========================= */
+.game-board {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: #2f98d4; /* CÉU AZUL */
+    overflow: hidden;
+    display: none;
+}
+
+/* Cenário Animado */
+.nuvem, .nuvem2 {
+    position: absolute;
+    right: -300px;
+    animation: move-left 20s infinite linear;
+    opacity: 0.8;
+}
+
+.nuvem { width: 200px; top: 100px; }
+.nuvem2 { width: 150px; top: 150px; animation-duration: 30s; }
+
+.palmeira, .palmeira2 {
+    position: absolute;
+    bottom: 90px;
+    width: 140px;
+    z-index: 1;
+}
+
+.palmeira { right: 250px; }
+.palmeira2 { right: 700px; width: 170px; }
+
+.grama {
+    position: absolute;
+    bottom: 90px;
+    width: 100%;
+    height: 15px;
+    background: #5cff00;
+    border-top: 5px solid #a8ff60;
+    z-index: 2;
+}
+
+.chao {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 90px;
+    background-color: #a14f00;
+    background-image:
+        linear-gradient(45deg, #6b2f00 25%, transparent 25%),
+        linear-gradient(-45deg, #6b2f00 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #c96a16 75%),
+        linear-gradient(-45deg, transparent 75%, #c96a16 75%);
+    background-size: 40px 40px;
+    z-index: 0;
+}
+
+/* Personagens e Obstáculos */
+.sonic {
+    position: absolute;
+    bottom: 78px;
+    left: 50px;
+    width: 110px;
+    z-index: 3;
+}
+
+.espinho {
+    position: absolute;
+    bottom: 78px;
+    width: 70px;
+    right: -80px;
+    animation: move-left 2s infinite linear;
+    z-index: 3;
+}
+
+.moeda {
+    position: absolute;
+    bottom: 95px;
+    width: 45px;
+    height: 45px;
+    right: -100px;
+    animation: move-left 2.5s infinite linear;
+    z-index: 3;
+}
+
+/* Interface Superior */
+.contador {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    color: white;
+    font-size: 30px;
+    font-weight: 900;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px 25px;
+    border-radius: 50px;
+    border: 3px solid #ffd700;
+    text-shadow: 2px 2px 0 #000;
+    z-index: 100;
+}
+
+.contador span {
+    color: #ffd700;
+}
+
+/* Game Over */
+.game-over {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 40px;
+    border-radius: 20px;
+    color: #37b5ff;
+    border: 4px solid #37b5ff;
+    z-index: 1000;
+}
+
+.game-over h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    color: #ff4444;
+}
+
+.btn-restart {
+    padding: 15px 40px;
+    font-size: 20px;
+    background: #5cff00;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Animações */
+.jump {
+    animation: jump-anim 550ms ease-out;
+}
+
+@keyframes jump-anim {
+    0%, 100% { bottom: 78px; }
+    45%, 55% { bottom: 250px; }
+}
+
+@keyframes move-left {
+    from { right: -300px; }
+    to { right: 100%; }
+}
+
+/* Controles Mobile */
+.btn-jump {
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    width: 100px;
+    height: 100px;
+    border: 3px solid white;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    color: white;
+    font-weight: bold;
+    z-index: 1000;
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .sonic { width: 85px; }
+    .btn-jump { display: block; }
+}
